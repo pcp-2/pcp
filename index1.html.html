@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>This is My HEART 💘</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+body{
+  background:linear-gradient(120deg,#ff4d6d,#ff8fa3);
+  overflow-x:hidden;
+}
+
+/* Sections */
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease;
+}
+section.show{opacity:1;transform:translateY(0);}
+
+/* Text */
+h1{
+  font-family:'Pacifico',cursive;
+  font-size:3rem;
+  color:white;
+  margin-bottom:20px;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  50%{transform:translateY(-10px);}
+}
+
+p{color:white;font-size:1.1rem;max-width:700px;line-height:1.7}
+
+/* Card */
+.card{
+  position:relative;
+  z-index:5;
+}
+
+/* Button */
+button{
+  margin-top:25px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff4d6d;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{transform:scale(1.1);}
+
+/* Music */
+.music-btn{
+  position:fixed;
+  top:20px;right:20px;
+  width:50px;height:50px;
+  background:white;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;
+  cursor:pointer;
+  z-index:999;
+}
+
+/* Gallery */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  max-width:900px;
+  width:100%;
+  margin-top:30px;
+}
+.gallery img{
+  width:100%;
+  border-radius:15px;
+  transition:.4s;
+}
+.gallery img:hover{
+  transform:scale(1.1);
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  animation:floatHeart 6s linear infinite;
+  pointer-events:none;
+}
+@keyframes floatHeart{
+  0%{transform:translateY(100vh);opacity:0}
+  50%{opacity:1}
+  100%{transform:translateY(-10vh);opacity:0}
+}
+
+/* ❤️ FINAL SURPRISE */
+.heart-btn{
+  font-size:5rem;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  50%{transform:scale(1.15);}
+}
+
+/* Photo Blast */
+.photo{
+  position:fixed;
+  left:50%;
+  top:50%;
+  width:160px;
+  border-radius:18px;
+  box-shadow:0 25px 50px rgba(0,0,0,0.45);
+  z-index:1000;
+  opacity:0;
+  animation:blast 1.8s ease-out forwards;
+}
+
+@keyframes blast{
+  0%{
+    opacity:0;
+    transform:translate(-50%, -50%) scale(0.3);
+  }
+  30%{
+    opacity:1;
+  }
+  100%{
+    transform:
+      translate(
+        calc(-50% + var(--x)),
+        calc(-50% + var(--y))
+      )
+      rotate(var(--r))
+      scale(1);
+    opacity:1;
+  }
+}
+
+footer{
+  padding:20px;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
+<audio id="bgMusic" loop>
+  <source src="I_L_U.mp3">
+</audio>
+
+<!-- Section 1 -->
+<section class="show">
+  <h1>This is MY HEART💘</h1>
+  <p>You are my favorite feeling, my love ❤️</p>
+  <button onclick="start()">Tap to see inside MY HEART ✨</button>
+</section>
+
+<!-- Section 2 -->
+<section>
+  <div class="card">
+    <h1>My Heart Says 💕</h1>
+    <p id="typing"></p>
+  </div>
+</section>
+
+<!-- Section 3 -->
+<section>
+  <h1>My Hapiness 📸</h1>
+  <div class="gallery">
+  <img src="c1.jpeg">
+  <img src="c7.jpeg">
+  <img src="c3.jpeg">
+  <img src="c4.jpeg">
+</div>
+
+</section>
+
+<!-- FINAL SURPRISE -->
+<section>
+  <div class="card">
+    <h1>See inside my Heart 💖</h1>
+    <div class="heart-btn" onclick="blastPhotos()">❤️</div>
+    <p>Because love is best when it explodes into memories ✨</p>
+  </div>
+</section>
+
+<footer>I LOVE YOU...💞</footer>
+
+<script>
+/* Music */
+const music=document.getElementById("bgMusic");
+let playing=false;
+function toggleMusic(){playing?music.pause():music.play();playing=!playing;}
+function start(){
+  toggleMusic();
+  document.querySelectorAll("section")[1].scrollIntoView({behavior:"smooth"});
+}
+
+/* Typing */
+const text="Every heartbeat of mine whispers your name. Loving you is my favorite thing to do 💖";
+let i=0;
+function type(){
+  if(i<text.length){
+    typing.innerHTML+=text.charAt(i++);
+    setTimeout(type,50);
+  }
+}
+type();
+
+/* Reveal */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+  sections.forEach(s=>{
+    if(s.getBoundingClientRect().top<innerHeight-100)
+      s.classList.add("show");
+  });
+});
+
+/* Hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💘";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=Math.random()*20+15+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);s
+},400);
+
+/* PHOTO BLAST */
+function blastPhotos(){
+
+  const images = [
+    "c6.jpeg",
+    "c2.jpeg",
+    "c8.jpeg",
+    "c5.jpeg"
+  ];
+
+  images.forEach((src, index) => {
+
+    setTimeout(() => {
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "photo";
+
+      img.style.setProperty("--x", (Math.random()*800 - 400) + "px");
+      img.style.setProperty("--y", (Math.random()*600 - 300) + "px");
+      img.style.setProperty("--r", (Math.random()*60 - 30) + "deg");
+
+      document.body.appendChild(img);
+
+      setTimeout(() => img.remove(), 4000);
+
+    }, index * 150);
+
+  });
+}</script>
+
+</body>
+</html>
